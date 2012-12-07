@@ -14,3 +14,13 @@ Traveling Salesman Problem
 * Initialisierung der Individuen
 * Fitnessevaluierung
 * Distanzberechnung anhand des TSP-Files (berlin52 von http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/tsp/)
+* Elternselektion (Tunierselektion)
+* Variation 
+
+  Ordered Crossover
+
+  Mutation
+  
+* Überlebensselektion 
+
+  Eliten
