@@ -1,4 +1,8 @@
-compTechniques
-==============
+Computational Techniques (Universität Wien)
+===============================================
 
-lecture computational techniques at the university of vienna
+Implementation eines Genetischen Algorithmus
+--------------------------------------------
+
+### Übersicht über den genetischen Algorthmus
+
