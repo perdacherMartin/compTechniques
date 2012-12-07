@@ -13,7 +13,7 @@ Traveling Salesman Problem
 
 * Initialisierung der Individuen
 * Fitnessevaluierung
-* Distanzberechnung anhand des TSP-Files (berlin52 von http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/tsp/)
+* Distanzberechnung anhand des TSP-Files (berlin52 von [TSP-Lib](http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/tsp/)
 * Elternselektion (Tunierselektion)
 * Variation 
 
