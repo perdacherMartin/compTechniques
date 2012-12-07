@@ -7,7 +7,7 @@ Implementation eines Genetischen Algorithmus
 --------------------------------------------
 
 ### Problemstellung
-Traveling Salesman Problem
+Das [Problem des Handlungsreisenden](http://de.wikipedia.org/wiki/Problem_des_Handlungsreisenden) wird anhand eines Genetischen Algorithmus ausprogrammiert.
 
 ### Übersicht über den genetischen Algorthmus
 
