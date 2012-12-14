@@ -5,6 +5,8 @@ public class City {
 	private double x;
 	private double y;
 	
+	private int test;
+	
 	public City(int node, double x, double y){
 		setNode(node);
 		setX(x);
