@@ -14,13 +14,13 @@ Das [Problem des Handlungsreisenden](http://de.wikipedia.org/wiki/Problem_des_Ha
 * Initialisierung der Individuen
 * Fitnessevaluierung
 * Distanzberechnung anhand des TSP-Files (berlin52 von [TSP-Lib](http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/tsp/))
-* Elternselektion (Tunierselektion)
+* Elternselektion (Rouletterad-Selektion)
 * Variation 
 
-  Ordered Crossover
+  Vergleich von Ordered Crossover (OX) und Partially Matched Crossover (PMX)
 
   Mutation
   
 * Überlebensselektion 
 
-  Eliten
+  Eliten (absolute Anzahl)
