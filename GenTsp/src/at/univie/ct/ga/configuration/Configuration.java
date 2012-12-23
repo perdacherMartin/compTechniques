@@ -92,7 +92,7 @@ public class Configuration
     public static void main(String[] args)
     {
 //    	Please note that the file name with a space.
-        Configuration rc = new Configuration(" information.properties");// relative path
+        Configuration rc = new Configuration(" information.properties");// file name
         
         String path = rc.getValue("filePath");//read the value of properties file
         String mutationRate = rc.getValue("mutationRate");
