@@ -1,46 +1,45 @@
 package at.univie.ct.ga.data;
 
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+ 
 public class City {
-	private int    node;
+	private int number;
 	private double x;
 	private double y;
-	
-	private int test;
-	
-	public City(int node, double x, double y){
-		setNode(node);
-		setX(x);
-		setY(y);
+ 
+	public City(int number, double x, double y) {
+		this.setNumber(number);
+		this.x = x;
+		this.y = y;
 	}
-	
-	public int getNode() {
-		return node;
+ 
+	public double getDistance(City next) {
+		return sqrt(pow((x - next.x), 2) + pow((y - next.y), 2));
 	}
-	
-	public void setNode(int node) {
-		this.node = node;
-	}
-	
+ 
+	/********************** getter and setter **************************/
 	public double getX() {
 		return x;
 	}
+ 
 	public void setX(double x) {
 		this.x = x;
 	}
-
+ 
 	public double getY() {
 		return y;
 	}
-
+ 
 	public void setY(double y) {
 		this.y = y;
 	}
-	
-	public double getDistance(City next){
-		//TODO a change this code with a pre-computation matrix from all cities to all-cities, which can be indexed with the city-Id
-		double xValue = Math.abs(this.getX() - next.getX());
-		double yValue = Math.abs(this.getY() - next.getY());
-		
-		return Math.sqrt( Math.pow(xValue, 2) + Math.pow(yValue, 2) );
+ 
+	public void setNumber(int number) {
+		this.number = number;
+	}
+ 
+	public int getNumber() {
+		return number;
 	}
 }

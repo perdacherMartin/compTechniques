@@ -1,4 +1,4 @@
-package at.univie.ct.ga.configuration;
+package at.univie.ct.ga;
 
 
 import java.io.FileNotFoundException;
