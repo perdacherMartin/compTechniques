@@ -24,7 +24,7 @@ public class InitData {
 			if (str.matches("([0-9]+)(\\s*)([0-9]+)(.?)([0-9]*)(\\s*)([0-9]+)(.?)([0-9]*)")) {
 				String[] data = str.split("(\\s+)");
 				City city = new City(Integer.parseInt(data[0]), Double.parseDouble(data[1]), Double.parseDouble(data[2]));
-				System.out.println("Index " + city.getNumber() + " X: " + city.getX() + " Y: " + city.getY());
+//				System.out.println("Index " + city.getNumber() + " X: " + city.getX() + " Y: " + city.getY());
 				map.put(city.getNumber(), city);
 			}
 		}
@@ -38,7 +38,7 @@ public class InitData {
 		for (int i = 1; i < map.size() + 1; i++) {
 			for (int j = 1; j < map.size() + 1; j++) {
 				distance[i][j] = map.get(i).getDistance(map.get(j));
-				System.out.println("Distance[" +i+"]"+"["+j+"]"+" "+ distance[i][j]);
+//				System.out.println("Distance[" +i+"]"+"["+j+"]"+" "+ distance[i][j]);
 			}
 		}
  
