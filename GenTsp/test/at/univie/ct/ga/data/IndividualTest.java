@@ -1,27 +1,33 @@
 package at.univie.ct.ga.data;
 
-import static org.junit.Assert.*;
+import java.io.IOException;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.junit.Ignore;
 import org.junit.Test;
 
-public class IndividualTest {
+import at.univie.ct.ga.GAMain;
+import at.univie.ct.ga.InitData;
 
+
+public class IndividualTest {
+	
 	@Test
-	public void test() {
-		City c1 = new City(1, 1.0, 1.0);
-		City c2 = new City(2, 1.0, 2.0);
-		City c3 = new City(3, 1.0, 3.0);
-		
-		List<City> cities = new ArrayList<City>();
-		cities.add(c1);
-		cities.add(c2);
-		cities.add(c3);
-		
-		Individual ind = new Individual(cities);
-		assertEquals(ind.getFitness(), 4.0, 0.0);
+	public void testForCalculateFitness() throws IOException{
+		GAMain main = new GAMain();
+		InitData.setCityMapAndNumberOfCity(main.filePath);
+		Individual.distance = InitData.getCityDistance(InitData.cityMap);
+		GAMain.randomlyGenerateIndividuals();
+		System.out.print("Fitness: " + GAMain.randomlyGenerateIndividuals().fitness);
 	}
+	@Ignore
+	public void testForMutate() throws IOException{
+		GAMain main = new GAMain();
+		InitData.setCityMapAndNumberOfCity(main.filePath);
+		Individual.distance = InitData.getCityDistance(InitData.cityMap);
+		
+		Individual indi = new Individual(GAMain.randomlyGenerateIndividuals().myPath);
+		indi.mutate();
+	}
+	
 
 }

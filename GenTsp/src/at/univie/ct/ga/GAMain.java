@@ -3,9 +3,12 @@ package at.univie.ct.ga;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
 
+import at.univie.ct.ga.data.City;
 import at.univie.ct.ga.data.Generation;
 import at.univie.ct.ga.data.Individual;
 
@@ -18,30 +21,26 @@ public class GAMain {
 	 */
 	static Configuration cf = new Configuration(" information.properties");
 	public static double[][] distance;
-	public static int numberOfCity = Integer.parseInt(cf.getValue("numberOfCity"));
-	public int generationMax = Integer.parseInt(cf.getValue("generationMax"));
 	public double selectRate = Double.parseDouble(cf.getValue("selectRate"));
-	public double mutationRate2 = Double.parseDouble(cf.getValue("mutationRate2"));
-//	public double mutationRate4 = Double.parseDouble(cf.getValue("mutationRate4"));
-	public double crossRate = Double.parseDouble(cf.getValue("crossRate"));
+	public double mutationRate = Double.parseDouble(cf.getValue("mutationRate"));
 	public int populationSize = Integer.parseInt(cf.getValue("populationSize"));
 	public String crossoverMethode = cf.getValue("crossoverMethode");
 	public String filePath = cf.getValue("filePath");
 	
 	/**
-	 * Randomly generated generation
-	 * @return  Individual
+	 * randomly generate the individuals in a generation
+	 * @return  new Individual
 	 */
 	
-	public static Individual randomGen(){
-    	StringBuilder sb = new StringBuilder();
+	public static Individual randomlyGenerateIndividuals(){
+		ArrayList<City> path = new ArrayList<City>();
     	int total = 0;
     	boolean flag = false;// repeat or not, repeat:true,no repeat:false  
-        int[] intArray = new int[numberOfCity];  
+        int[] intArray = new int[InitData.numberOfCity];  
     	Random rand = new Random();
-    	while (total < numberOfCity)  
+    	while (total < InitData.numberOfCity)  
          {  
-             int intTemp = rand.nextInt(numberOfCity - 1 + 1) + 1;  
+             int intTemp = rand.nextInt(InitData.numberOfCity - 1 + 1) + 1;  
              // Determine whether the generated data are equal.  
              for (int j = 0; j < total; j++)  
              {  
@@ -61,25 +60,36 @@ public class GAMain {
                  total++;  
              }  
          } 
-    	/*
+   /* 	
 //    	 only for test
-         Arrays.sort(intArray);
+//         Arrays.sort(intArray);
          for(int i: intArray){
         	 System.out.print(i + " ");
          }
-         */
+         System.out.print("\n");
+       */  
     	for(int i: intArray){
-    		sb.append(i+" ");
+    		path.add(InitData.cityMap.get(i));
     	}
-    	
-//    	System.out.print("Path " + sb);
-    	return new Individual(sb.toString());
+   /* 	
+    	for(City c: path){
+    		System.out.print(c.getNumber() + " ");
+    	}
+    	*/
+    	return new Individual(path);
     }
 	
+	/**
+	 * Attention: Maybe there will be changed.
+	 * Find the best individual in a generation.
+	 * @param log
+	          Control output
+	 * @return new Individual
+	 */
 	
-	public Individual ga(boolean log){
+	public Individual findTheBestIndividual(boolean log){
 	       if(this.distance == null){
-	           throw new RuntimeException("distance can not be null");
+	           throw new RuntimeException("Distance can not be null!");
 	       }
 	 
 	       Generation first = init();	//initialization of individual
@@ -87,23 +97,23 @@ public class GAMain {
 	    	   System.out.println(first.toString());
 	       }
 	 
-	       for(int i = 0; i < generationMax; i++){
-//	    	   first = first.createGenerationAfterSelect(selectRate);	//selection of individual
-//	    	   first.findMin();
+	       for(int i = 0; i < this.populationSize; i++){
+	    	   first = first.rouletteSelcetion(selectRate);	//selection of individual
+	    	   first.findMin();
 	    	   if(log){
 	    		   System.out.println("Selection in "+i+"th generation ");
 	    		   System.out.println(first.toString());
 	    		   System.out.println();
 	    	   }
-//	    	   first = first.oxCross(crossRate, numberOfCity);
-//	    	   first.findMin();
+	    	   first = first.crossover(this.crossoverMethode);
+	    	   first.findMin();
 	    	   if(log){
 	    		   System.out.println("Corossover in "+i+"th generation ");
 	    		   System.out.println(first.toString());
 	    		   System.out.println();
 	    	   }
-//	    	   first = first.mutate(mutationRate2, mutationRate4, numberOfCity);
-//	    	   first.findMin();
+	    	   first = first.mutate(mutationRate);
+	    	   first.findMin();
 	    	   if(log){
 	    		   System.out.println("Variation in "+i+"th generation ");
 	    		   System.out.println(first.toString());
@@ -114,13 +124,16 @@ public class GAMain {
 	       return first.getminPath();
 	 
 	    }
-	 
+	 /**
+	  * randomly initialize one generation
+	  * @return new Generation
+	  */
 	    private Generation init(){
 	    	Generation first = new Generation(populationSize);
 	 
 	    	Individual gene;
 	    	for(int i = 0; i < populationSize; i++){
-	    		gene = randomGen();
+	    		gene = randomlyGenerateIndividuals();
 	    		first.allIndividuals.add(gene);
 	    	}
 	    	return first;
@@ -128,10 +141,11 @@ public class GAMain {
 	
 	public static void main(String[] args) throws IOException {
 		GAMain main = new GAMain();
-		
-		GAMain.distance = InitData.getCityDistance(InitData.getCityData(main.filePath));
+		InitData.setCityMapAndNumberOfCity(main.filePath);
+		GAMain.distance = InitData.getCityDistance(InitData.cityMap);
 		Individual.distance = GAMain.distance;
-		System.out.println(main.ga(false));
+		System.out.println(main.findTheBestIndividual(true));
+
 	}
 
 }
