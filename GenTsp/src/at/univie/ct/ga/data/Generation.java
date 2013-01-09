@@ -93,8 +93,12 @@ public class Generation {
  
 	
 	public String toString() {
+		StringBuilder sb = new StringBuilder();
+    	for(City c: this.minPath.myPath){
+    		sb.append(c.getNumber()+ " ");
+    	}
 		return  " minPath is "
-				+ this.minPath + " and the path costs " + getMinCost()
+				+ sb.toString() + " and the path costs " + getMinCost()
 				+ "\n";
 	}
  
@@ -221,6 +225,7 @@ public class Generation {
 	 * find minimal value
 	 */
 	public void findMin() {
+//		System.out.println("Length: " + this.allIndividuals.size());
 		Individual min = this.allIndividuals.get(0);
 		if (min == null) {
 			throw new RuntimeException("The Data of this Generation is null!");
