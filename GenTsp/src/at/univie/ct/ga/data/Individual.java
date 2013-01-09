@@ -12,7 +12,6 @@ public class Individual implements Comparable<Individual>{
 	
 	public static double[][] distance;
 	public ArrayList<City> myPath = new ArrayList<City>();
-    public String path;       //path of cities
     public double fitness;       // the roundtrip of the TSP
    
     /**
@@ -96,7 +95,11 @@ public class Individual implements Comparable<Individual>{
    
  
     public String toString(){
-        return this.path+"  cost is "+this.fitness+"/n";
+    	StringBuilder sb = new StringBuilder();
+    	for(City c: this.myPath){
+    		sb.append(c.getNumber()+ " ");
+    	}
+        return sb.toString() + "  cost is "+this.fitness+"/n";
     }
     
 	@Override
