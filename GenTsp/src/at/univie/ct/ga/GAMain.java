@@ -93,23 +93,21 @@ public class GAMain {
 	       }
 	 
 	       Generation first = init();	//initialization of individual
-	       if(log){
-	    	   System.out.println(first.toString());
-	       }
+	      
 	 
 	       for(int i = 0; i < this.populationSize; i++){
-	    	   first = first.rouletteSelcetion(selectRate);	//selection of individual
-	    	   first.findMin();
+//	    	   first = first.rouletteSelcetion(selectRate);	//selection of individual
+//	    	   first.findMin();
 	    	   if(log){
 	    		   System.out.println("Selection in "+i+"th generation ");
-	    		   System.out.println(first.toString());
+//	    		   System.out.println(first.toString());
 	    		   System.out.println();
 	    	   }
-	    	   first = first.crossover(this.crossoverMethode);
-	    	   first.findMin();
+//	    	   first = first.crossover(this.crossoverMethode);
+//	    	   first.findMin();
 	    	   if(log){
 	    		   System.out.println("Corossover in "+i+"th generation ");
-	    		   System.out.println(first.toString());
+//	    		   System.out.println(first.toString());
 	    		   System.out.println();
 	    	   }
 	    	   first = first.mutate(mutationRate);
