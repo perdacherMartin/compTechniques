@@ -19,7 +19,8 @@ public class IndividualTest {
 		GAMain.randomlyGenerateIndividuals();
 		System.out.print("Fitness: " + GAMain.randomlyGenerateIndividuals().fitness);
 	}
-	@Ignore
+	
+	@Test
 	public void testForMutate() throws IOException{
 		GAMain main = new GAMain();
 		InitData.setCityMapAndNumberOfCity(main.filePath);
