@@ -38,7 +38,7 @@ public class GenerationTest {
 		}
 		
 	}
-	@Test
+	@Ignore
 	public void testForPMX() throws IOException{
 		
 		GAMain main = new GAMain();
@@ -64,6 +64,19 @@ public class GenerationTest {
 		for(City c: temp.myPath){
 			System.out.print(c.getNumber() + " ");
 		}
+		
+	}
+	@Test
+	public void testForRouletteSelcetion() throws IOException{
+		GAMain main = new GAMain();
+		InitData.setCityMapAndNumberOfCity(main.filePath);
+		Generation gen = new Generation(main.populationSize);
+		Individual.distance = InitData.getCityDistance(InitData.cityMap);
+		for(int i=0;i<main.populationSize;i++){
+			gen.allIndividuals.add(GAMain.randomlyGenerateIndividuals());
+		}
+		
+		Generation newGeneration = gen.rouletteSelcetion(0.1);
 		
 	}
 
