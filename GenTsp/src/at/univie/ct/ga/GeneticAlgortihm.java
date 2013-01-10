@@ -14,6 +14,28 @@ public class GeneticAlgortihm {
 	private ArrayList<Individual> population;
 	private Individual            optimal;
 	private InitData              initData = InitData.getInstance();
+
+	public GeneticAlgortihm(Properties prop){
+		initData.setCities(prop.getProperty("problem"));
+		optimal = new Individual(prop.getProperty("optimal"));
+		this.setMutationRate(Double.parseDouble(prop.getProperty("mutationRate")));
+		int populationSize = Integer.parseInt(prop.getProperty("populationSize"));
+		this.setCrossover(prop.getProperty("crossoverMethode"));
+		
+		for ( int i=0 ; i < populationSize ; i++ ){
+			population.add(initData.getRandomIndividual());
+		}
+		
+	}	
+	
+	public ArrayList<Individual> selectElites(int count){
+		// TODO: see issue #9
+		return null;
+	}
+	
+	public void doGenerate(){
+		// TODO: see issue #10 
+	}
 	
 	public double getMutationRate() {
 		return mutationRate;
@@ -42,7 +64,39 @@ public class GeneticAlgortihm {
 		}
 		
 	}
-
+	
+	private Individual getElternteil(){
+		// TODO: issue #3
+		return null;
+	}
+	
+	private Individual SelectAndCrossover(){
+		Individual i1 = this.getElternteil();
+		Individual i2 = this.getElternteil();
+		Individual child = null;
+		
+		switch ( crossover ){
+			case OX :
+				child = CrossoverOX(i1,i2);
+				break;
+			case PMX :
+				child = CrossoverPMX(i1,i2);
+				break;
+		}
+		
+		return child;
+	}
+	
+	private Individual CrossoverPMX(Individual i1, Individual i2){
+		// TODO: issue #5
+		return null;
+	}
+	
+	private Individual CrossoverOX(Individual i1, Individual i2){
+		// TODO: issue #6
+		return null;
+	}
+	
 	public ArrayList<Individual> getPopulation() {
 		return population;
 	}
@@ -51,17 +105,6 @@ public class GeneticAlgortihm {
 		this.population = population;
 	}
 	
-	public GeneticAlgortihm(Properties prop){
-		initData.setCities(prop.getProperty("problem"));
-		optimal = new Individual(prop.getProperty("optimal"));
-		this.setMutationRate(Double.parseDouble(prop.getProperty("mutationRate")));
-		int populationSize = Integer.parseInt(prop.getProperty("populationSize"));
-		this.setCrossover(prop.getProperty("crossoverMethode"));
-		
-		for ( int i=0 ; i < populationSize ; i++ ){
-			population.add(initData.getRandomIndividual());
-		}
-		
-	}
+
 	
 }
