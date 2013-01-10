@@ -1,16 +1,16 @@
 package at.univie.ct.ga.data;
 
-import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
+import at.univie.ct.ga.GAException;
  
 public class City {
 	private int number;
 	private double x;
 	private double y;
- 
+	private InitData initData = InitData.getInstance();
 	public City(){
 		
 	}
+	
 	public City(int number, double x, double y) {
 		this.setNumber(number);
 		this.x = x;
@@ -18,7 +18,14 @@ public class City {
 	}
  
 	public double getDistance(City next) {
-		return sqrt(pow((x - next.x), 2) + pow((y - next.y), 2));
+		double distance = 0.0;
+		try {
+			distance = initData.getDistance(this.getNumber(), next.getNumber());
+		} catch (GAException e) {
+			System.err.println("Error in Class City! Could not associate number to city!");
+			e.printStackTrace();
+		}
+		return distance;
 	}
  
 	/********************** getter and setter **************************/
