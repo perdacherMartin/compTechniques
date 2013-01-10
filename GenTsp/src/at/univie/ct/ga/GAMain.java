@@ -60,21 +60,24 @@ public class GAMain {
                  total++;  
              }  
          } 
-   /* 	
-//    	 only for test
-//         Arrays.sort(intArray);
+    	 /*
+    	 //------------only for test-----------
+         Arrays.sort(intArray);
          for(int i: intArray){
         	 System.out.print(i + " ");
          }
          System.out.print("\n");
-       */  
+         //------------------------------------
+         */
     	for(int i: intArray){
     		path.add(InitData.cityMap.get(i));
     	}
-   /* 	
+    	/*
+    	//------------only for test-----------
     	for(City c: path){
     		System.out.print(c.getNumber() + " ");
     	}
+    	//------------------------------------
     	*/
     	return new Individual(path);
     }
@@ -96,15 +99,15 @@ public class GAMain {
 	      
 	 
 	       for(int i = 0; i < this.populationSize; i++){
-//	    	   first = first.rouletteSelcetion(selectRate);	//selection of individual
-//	    	   first.findMin();
+	    	   first = first.rouletteSelcetion(selectRate);	//selection of individual
+	    	   first.findMin();
 	    	   if(log){
 	    		   System.out.println("Selection in "+i+"th generation ");
 //	    		   System.out.println(first.toString());
 	    		   System.out.println();
 	    	   }
-//	    	   first = first.crossover(this.crossoverMethode);
-//	    	   first.findMin();
+	    	   first = first.crossover(this.crossoverMethode);
+	    	   first.findMin();
 	    	   if(log){
 	    		   System.out.println("Corossover in "+i+"th generation ");
 //	    		   System.out.println(first.toString());
