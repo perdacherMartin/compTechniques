@@ -31,15 +31,36 @@ public class Generation {
 	
 	/**
 	 * roulette selection
-	 * 
+	 * Problem..............every survival probability is so smaller as select rate.
 	 * @param selectRate
 	 *           
 	 * @return new generation
 	 */
 	public Generation rouletteSelcetion(double selectRate) {
+		//TODO
 		Generation newGeneration = new Generation(populationSize);
-		// TODO
-
+		
+		double sum = 0.0;
+//		survival Probability for every Individual
+		double[] survivalProbability = new double[this.populationSize];
+		
+		for(Individual indi: this.allIndividuals){
+			
+//			sum = sum + 1/indi.fitness;
+			sum = sum + indi.fitness;
+		}
+		for(int i=0; i<this.populationSize;i++){
+//			survivalProbability[i] = 1 - (1/this.allIndividuals.get(i).fitness)/sum;
+			survivalProbability[i] = this.allIndividuals.get(i).fitness/sum;
+			System.out.print(survivalProbability[i]+ " ");
+		}
+		for(int j=0; j<this.populationSize;j++){
+			if(survivalProbability[j] > selectRate){
+				newGeneration.allIndividuals.add(j, this.allIndividuals.get(j));
+			} else {
+				newGeneration.allIndividuals.add(j, GAMain.randomlyGenerateIndividuals());
+			}
+		}
 		return newGeneration;
 	}
 		
@@ -59,12 +80,9 @@ public class Generation {
 			r = rand.nextInt(populationSize-1 - 0 + 1) + 0;
 			individual = allIndividuals.get(r);
  
-			double fr = individual.fitness;
-			
- 
 			//begin to variate
 			double random = Math.random();
-			if(random < mutationRate){
+			if(random < mutationRate && random >0){
 				this.allIndividuals.set(i, individual.mutate());
 			}
 		}
@@ -88,7 +106,7 @@ public class Generation {
 		} else {
 			throw new RuntimeException("There are not this Methods (Only OX or PMX)!");
 		}
-		return null;
+		return this;
 	}
 	
 	/**
@@ -122,6 +140,9 @@ public class Generation {
     	}
     	
     	if(r1>r2){
+    		
+    		oxTemp(r2, r1,length, sonPath,f1, f2);
+    		/*
     		for(int i=r2;i<=r1;i++){
     			sonPath.set(i, f1.myPath.get(i));
     		}
@@ -145,9 +166,10 @@ public class Generation {
     			flag = false;
     			
     		}
-    		
+    		*/
     	} else {
-    		
+    		oxTemp(r1, r2,length, sonPath,f1, f2);
+    		/*
     		for(int i=r1;i<=r2;i++){
     			sonPath.set(i, f1.myPath.get(i));
     		}
@@ -171,13 +193,39 @@ public class Generation {
     			flag = false;
     			
     		}
-    		
+    		*/
     	}
     	
     	
 		return new Individual(sonPath);
 	}
 	
+	public void oxTemp(int min, int max,int length, ArrayList<City> sonPath,Individual f1, Individual f2){
+		
+		for(int i=min;i<=max;i++){
+			sonPath.set(i, f1.myPath.get(i));
+		}
+		boolean flag = false;
+		for(int j=0;j<=length;j++){
+			
+			for(int k=min;k<=max;k++){
+				if(f2.myPath.get(j).getNumber()== f1.myPath.get(k).getNumber()){
+					flag = true;
+				}
+			}
+			if(flag == false){
+//				add element to son
+				for(int x=0;x<=length;x++){
+					if(sonPath.get(x).getNumber() == 0){
+						sonPath.set(x, f2.myPath.get(j));
+						break;
+					}
+				}
+			}
+			flag = false;
+			
+		}
+	}
 	/**
 	 * PMX
 	 * Wen can not use PMX for TSP Problem.
