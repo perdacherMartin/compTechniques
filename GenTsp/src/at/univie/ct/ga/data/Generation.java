@@ -36,7 +36,6 @@ public class Generation {
 //	 * @return new generation
 //	 */
 //	public Generation rouletteSelcetion(double selectRate) {
-//		//TODO 
 //		Generation newGeneration = new Generation(populationSize);
 //		
 //		double sum = 0.0;
@@ -99,9 +98,9 @@ public class Generation {
 //	public Generation crossover(String crossoverMethode){
 //		
 //		if(crossoverMethode.equals("OX")){
-//			//TODO
+
 //		} else if (crossoverMethode.equals("PMX")){
-//			//TODO
+
 //		} else {
 //			throw new RuntimeException("There are not this Methods (Only OX or PMX)!");
 //		}
@@ -236,7 +235,6 @@ public class Generation {
 // 
 //	public Individual pmx(Individual f1, Individual f2){
 //		ArrayList<City> sonPath = new ArrayList<City>();
-//		//TODO
 //		int length = InitData.numberOfCity - 1;
 //		Random rand = new Random();
 //		// radom nummber from 1 to length-1

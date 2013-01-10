@@ -104,7 +104,6 @@ public class Individual implements Comparable<Individual>{
     
 	@Override
 	public int compareTo(Individual next) {
-		// TODO Auto-generated method stub
 		if(this.getFitness() < next.getFitness()) return 1;
         if(this.getFitness() > next.getFitness()) return -1;
 		return 0;
