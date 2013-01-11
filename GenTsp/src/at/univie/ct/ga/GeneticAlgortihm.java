@@ -23,7 +23,7 @@ public class GeneticAlgortihm {
 		this.setCrossover(prop.getProperty("crossoverMethode"));
 		
 		for ( int i=0 ; i < populationSize ; i++ ){
-			population.add(initData.getRandomIndividual());
+			population.add(initData.createRandomIndividual());
 		}
 		
 	}	

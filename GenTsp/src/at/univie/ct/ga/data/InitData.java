@@ -45,7 +45,10 @@ public class InitData {
 		this.setCityDistance();
 	}
 	
-	public Individual getRandomIndividual(){
+	/*
+	 * this method returns a new completly random individual
+	 */
+	public Individual createRandomIndividual(){
 		ArrayList<City> ind = new ArrayList<City>(cities);
 		java.util.Collections.shuffle(ind);
 		
