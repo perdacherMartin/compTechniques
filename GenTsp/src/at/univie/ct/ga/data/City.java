@@ -19,7 +19,7 @@ public class City {
 	public double getDistance(City next) {
 		
 		// simple euclidian distance
-		
+		// TODO: see optional issue #11
 		return sqrt(
 					pow(this.getX() - next.getX(),2) +
 					pow(this.getY() - next.getY(),2)
