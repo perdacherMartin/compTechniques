@@ -1,31 +1,32 @@
 package at.univie.ct.ga.data;
 
-import at.univie.ct.ga.GAException;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
  
 public class City {
+	
 	private int number;
 	private double x;
 	private double y;
-	private InitData initData = InitData.getInstance();
 	
 	
 	public City(int number, double x, double y) {
 		this.setNumber(number);
 		this.x = x;
 		this.y = y;
-		initData.addCity(this);
 	}
  
 	public double getDistance(City next) {
-		double distance = 0.0;
-		try {
-			distance = initData.getDistance(this.getNumber(), next.getNumber());
-		} catch (GAException e) {
-			System.err.println("Error in Class City! Could not associate number to city!");
-			e.printStackTrace();
-		}
-		return distance;
+		
+		// simple euclidian distance
+		
+		return sqrt(
+					pow(this.getX() - next.getX(),2) +
+					pow(this.getY() - next.getY(),2)
+				);
 	}
+	
+
  
 	/********************** getter and setter **************************/
 	public double getX() {
