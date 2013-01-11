@@ -25,8 +25,6 @@ public class CityTest {
 		
 		assertEquals(c1.getDistance(c2), 5.0, 0.0);
 		
-		
-		
 		assertEquals(c3.getDistance(c1), 7.07, 0.1);
 	}
 
