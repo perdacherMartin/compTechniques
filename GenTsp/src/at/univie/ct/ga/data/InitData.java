@@ -31,6 +31,11 @@ public class InitData {
 	private InitData(){ 
 	}
 	
+	public void addCity(City c){
+		cities.add(c);
+		this.setCityDistance();
+	}
+	
 	public static InitData getInstance(){
 		return INSTANCE;
 	}

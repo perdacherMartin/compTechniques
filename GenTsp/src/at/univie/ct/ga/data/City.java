@@ -7,14 +7,13 @@ public class City {
 	private double x;
 	private double y;
 	private InitData initData = InitData.getInstance();
-	public City(){
-		
-	}
+	
 	
 	public City(int number, double x, double y) {
 		this.setNumber(number);
 		this.x = x;
 		this.y = y;
+		initData.addCity(this);
 	}
  
 	public double getDistance(City next) {
