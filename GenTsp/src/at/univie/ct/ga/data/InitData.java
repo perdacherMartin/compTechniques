@@ -62,8 +62,6 @@ public class InitData {
 				if (str.matches("([0-9]+)(\\s*)([0-9]+)(.?)([0-9]*)(\\s*)([0-9]+)(.?)([0-9]*)")) {
 					String[] data = str.split("(\\s+)");
 					City city = new City(Integer.parseInt(data[0]), Double.parseDouble(data[1]), Double.parseDouble(data[2]));
-//				System.out.println("Index " + city.getNumber() + " X: " + city.getX() + " Y: " + city.getY());
-					cities.add(city);
 				}
 			}
 		} catch (FileNotFoundException e) {
