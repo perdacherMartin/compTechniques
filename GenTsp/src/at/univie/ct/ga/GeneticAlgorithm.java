@@ -2,31 +2,32 @@ package at.univie.ct.ga;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import at.univie.ct.ga.data.City;
 import at.univie.ct.ga.data.Individual;
 
-public class GeneticAlgortihm {
-
-	public enum crossoverType{ OX, PMX }
+public class GeneticAlgorithm {
 	private double                mutationRate;
-	private crossoverType 		  crossover;
-	private ArrayList<Individual> population;
+	private CrossoverType 		  crossover;
+	private List<Individual>      population = new ArrayList<Individual>();
 	private Individual            optimal;
-	private ArrayList<City>       cities; // all available cities to generate random individuals
+	private List<City>            cities = new ArrayList<City>(); // all available cities to generate random individuals
+	private int                   elites; 
 
-	public GeneticAlgortihm(Properties prop){
+	public GeneticAlgorithm(Properties prop){
 		this.setCities(prop.getProperty("problem"));
 		optimal = new Individual(prop.getProperty("optimal"));
 		this.setMutationRate(Double.parseDouble(prop.getProperty("mutationRate")));
 		int populationSize = Integer.parseInt(prop.getProperty("populationSize"));
 		this.setCrossover(prop.getProperty("crossoverMethode"));
-		
+		this.setElites(Integer.parseInt(prop.getProperty("eliten")));
 		for ( int i=0 ; i < populationSize ; i++ ){
 			population.add(this.createRandomIndividual());
 		}
@@ -39,6 +40,7 @@ public class GeneticAlgortihm {
 	}
 	
 	public void doGenerate(){
+		System.out.println("hello world!");
 		// TODO: see issue #10 
 	}
 	
@@ -50,19 +52,28 @@ public class GeneticAlgortihm {
 		this.mutationRate = mutationRate;
 	}
 
-	public crossoverType getCrossover() {
+	public CrossoverType getCrossover() {
 		return crossover;
 	}
 
-	public void setCrossover(crossoverType crossover) {
+	public void setCrossover(CrossoverType crossover) {
 		this.crossover = crossover;
 	}
 	
+	public int getElites() {
+		return elites;
+	}
+
+	public void setElites(int elites) {
+		this.elites = elites;
+	}
+
+	
 	public void setCrossover(String crossover) {
 		if ( crossover.equals("OX") ){
-			this.crossover = crossoverType.OX;
+			this.crossover = CrossoverType.OX;
 		}else if ( crossover.equals("PMX") ) {
-			this.crossover = crossoverType.PMX;
+			this.crossover = CrossoverType.PMX;
 		}else{
 			System.err.println("Error occured! Could not set Crossovertype! Class:GeneticAlgorithm");
 			System.exit(1);
@@ -109,12 +120,16 @@ public class GeneticAlgortihm {
 		return null;
 	}
 	
-	public ArrayList<Individual> getPopulation() {
+	public List<Individual> getPopulation() {
 		return population;
 	}
 
 	public void setPopulation(ArrayList<Individual> population) {
 		this.population = population;
+	}
+	
+	public int getPopulationSize(){
+		return this.population.size();
 	}
 	
 	public void setCities(String filename) {
@@ -124,7 +139,7 @@ public class GeneticAlgortihm {
 			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
 			for (String str = reader.readLine(); str != null; str = reader.readLine()) {
 				// find the city coordinates from the file
-				if (str.matches("([0-9]+)(\\s*)([0-9]+)(.?)([0-9]*)(\\s*)([0-9]+)(.?)([0-9]*)")) {
+				if (str.matches("([0-9]+)(\\s*)([0-9]+)(\\.?)([0-9]*)(\\s*)([0-9]+)(\\.?)([0-9]*)")) {
 					String[] data = str.split("(\\s+)");
 					cities.add(new City(Integer.parseInt(data[0]), Double.parseDouble(data[1]), Double.parseDouble(data[2])));
 				}

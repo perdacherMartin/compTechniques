@@ -27,18 +27,19 @@ public class Main {
 			System.out.println("Populationsize: " + prop.getProperty("populationSize"));
 			System.out.println("Using a mutation rate of " + prop.getProperty("mutationRate") );
 			System.out.println("Using the " + prop.getProperty("crossoverMethode") + " as crossover method");
-			System.out.println("Using " + prop.getProperty("eliten") + "elites");
+			System.out.println("Using " + prop.getProperty("eliten") + " elites");
 			
-			GeneticAlgortihm ga = new GeneticAlgortihm(prop);
+			GeneticAlgorithm ga = new GeneticAlgorithm(prop);
 
 			/*
 			 * durchlaufen der Generationen: 
+			 */ 
 			int generations = Integer.parseInt(prop.getProperty("generationen"));
 			for ( int i=0 ; i < generations ; i++ ){
 				ga.doGenerate();
 			}
 			
-			*/
+			
 		}catch(IOException e){
 			System.err.println("Could not open Propertyfile!");
 			e.printStackTrace();
