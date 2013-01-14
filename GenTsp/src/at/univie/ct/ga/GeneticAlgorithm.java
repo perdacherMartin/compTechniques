@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 import at.univie.ct.ga.data.City;
 import at.univie.ct.ga.data.Individual;
@@ -109,15 +110,138 @@ public class GeneticAlgorithm {
 		
 		return child;
 	}
-	
-	private Individual CrossoverPMX(Individual i1, Individual i2){
-		// TODO: issue #5
-		return null;
+ 
+	private void oxTemp(int min, int max,int length, ArrayList<City> sonPath,Individual i1, Individual i2){
+		
+		for(int i=min;i<=max;i++){
+			sonPath.set(i, i1.cities.get(i));
+		}
+		boolean flag = false;
+		for(int j=0;j<=length;j++){
+			
+			for(int k=min;k<=max;k++){
+				if(i2.cities.get(j).getNumber()== i1.cities.get(k).getNumber()){
+					flag = true;
+				}
+			}
+			if(flag == false){
+//				add element to son
+				for(int x=0;x<=length;x++){
+					if(sonPath.get(x).getNumber() == 0){
+						sonPath.set(x, i2.cities.get(j));
+						break;
+					}
+				}
+			}
+			flag = false;
+			
+		}
 	}
 	
+	
 	private Individual CrossoverOX(Individual i1, Individual i2){
-		// TODO: issue #6
-		return null;
+		
+		int length = this.cities.size() - 1;
+		Random rand = new Random();
+		// radom nummber from 0 to length
+    	int r1 = rand.nextInt(length - 0 + 1) + 0; 
+    	int r2 = rand.nextInt(length - 0 + 1) + 0; 
+    	while(r1==r2){
+    		r1 = rand.nextInt(length - 0 + 1) + 0; 
+    		r2 = rand.nextInt(length - 0 + 1) + 0;
+    	}
+    	/*
+    	//------only for test-----------------------
+    	System.out.print("R1: " + r1 + " R2: " + r2);
+    	System.out.print("\n");
+    	//------------------------------------------
+    	*/
+    	ArrayList<City> sonPath = new ArrayList<City>();
+    	
+    	for(int xx=0;xx<=length;xx++){
+    		City c = new City();
+    		c.setNumber(0);
+    		sonPath.add(c);
+    	}
+    	
+    	if(r1>r2){
+    		
+    		oxTemp(r2, r1,length, sonPath,i1, i2);
+    		
+    	} else {
+    		oxTemp(r1, r2,length, sonPath,i1, i2);
+    		
+    	}
+    	
+    	
+		return new Individual(sonPath);
+	}
+	
+	private void pmxTemp(int min, int max,int length, ArrayList<City> sonPath,Individual i1, Individual i2){
+		
+		int index = -1;
+		for(int i=min;i<=max;i++){
+			sonPath.set(i, i1.cities.get(i));
+		}
+	    
+		for(int j=0;j<=length;j++){
+			
+			for(int k=min;k<=max;k++){
+				if(i2.cities.get(j).getNumber()== i1.cities.get(k).getNumber()){
+					index = i1.cities.indexOf(i1.cities.get(k));
+				}
+			}
+			
+			if(index > -1){
+				if(j>=min && j<=max){
+					
+				} else {
+					sonPath.set(j, i2.cities.get(index));
+				}
+				
+			} else {
+				if(j>=min && j<=max){
+					
+				} else {
+					sonPath.set(j, i2.cities.get(j));
+				}
+				
+			}
+			index = -1;
+		}
+	}
+	
+	private Individual CrossoverPMX(Individual i1, Individual i2){
+		ArrayList<City> sonPath = new ArrayList<City>();
+		//TODO
+		int length = this.cities.size() - 1;
+		Random rand = new Random();
+		// radom nummber from 1 to length-1
+    	int r1 = rand.nextInt(length-1 - 1 + 1) + 1; 
+    	int r2 = rand.nextInt(length-1 - 1 + 1) + 1; 
+    	while(r1==r2){
+    		r1 = rand.nextInt(length-1 - 1 + 1) + 1; 
+    		r2 = rand.nextInt(length-1 - 1 + 1) + 1;
+    	}
+    	//----------only for test-------------------
+    	
+//    	System.out.println("R1: " + r1 + " R2: " + r2);
+    	//------------------------------------------
+    	for(int xx=0;xx<=length;xx++){
+    		City c = new City();
+    		c.setNumber(0);
+    		sonPath.add(c);
+    	}
+    	
+    	if(r1>r2){
+    		pmxTemp(r2,r1,length, sonPath, i1,i2);
+    		
+    	} else {
+    		
+    		pmxTemp(r1,r2,length, sonPath, i1,i2);
+    	}
+    	
+		return new Individual(sonPath);
 	}
 	
 	public List<Individual> getPopulation() {
@@ -130,6 +254,9 @@ public class GeneticAlgorithm {
 	
 	public int getPopulationSize(){
 		return this.population.size();
+	}
+	public int getNumberOfCity(){
+		return this.cities.size();
 	}
 	
 	public void setCities(String filename) {
