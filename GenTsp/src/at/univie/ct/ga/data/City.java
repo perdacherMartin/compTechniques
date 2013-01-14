@@ -10,6 +10,9 @@ public class City {
 	private double y;
 	
 	
+	public City(){
+		
+	}
 	public City(int number, double x, double y) {
 		this.setNumber(number);
 		this.x = x;
