@@ -58,7 +58,7 @@ public class GeneticAlgorithm {
  
 			//begin to variate
 			double random = Math.random();
-			if(random < this.mutationRate && random >0){
+			if(random > this.mutationRate){
 				this.population.set(i, individual.mutate());
 			}
 		}
@@ -108,9 +108,40 @@ public class GeneticAlgorithm {
 		
 	}
 	
+	
 	private Individual getElternteil(){
 		// TODO: issue #3
-		return null;
+		int r;	
+		Individual individual = null;
+		Random rand = new Random();
+		r = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
+		for(int i = 0; i < this.getPopulationSize(); i++){
+			individual = this.population.get(r);
+		}
+		return individual;
+	}
+	
+	private ArrayList<Individual> rouletteSelcetion(double selectRate){
+		
+		ArrayList<Individual> newGeneration = new ArrayList<Individual>(this.getPopulationSize());
+		double sum = 0.0;
+//		survival Probability for every Individual
+		double[] survivalProbability = new double[this.getPopulationSize()];
+		
+		for(Individual indi: this.population){
+			sum = sum + indi.getFitness();
+		}
+		for(int i=0; i<this.getPopulationSize();i++){
+			survivalProbability[i] = this.population.get(i).getFitness()/sum;
+		}
+		for(int j=0; j<this.getPopulationSize();j++){
+			if(survivalProbability[j] > selectRate){
+				newGeneration.add(j, this.population.get(j));
+			} else {
+				newGeneration.add(j, createRandomIndividual());
+			}
+		}
+		return newGeneration;
 	}
 	
 	public Individual createRandomIndividual(){
@@ -121,8 +152,21 @@ public class GeneticAlgorithm {
 	}
 	
 	private Individual SelectAndCrossover(){
-		Individual i1 = this.getElternteil();
-		Individual i2 = this.getElternteil();
+//		Individual i1 = this.getElternteil();
+//		Individual i2 = this.getElternteil();
+		
+		int r1, r2;
+		Individual i1, i2;
+		Random rand = new Random();
+		r1 = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
+		r2 = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
+		while(r1==r2){
+			r1 = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
+			r2 = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
+		}
+		i1 = this.population.get(r1);
+		i2 = this.population.get(r1);
+		
 		Individual child = null;
 		
 		switch ( crossover ){
@@ -247,23 +291,20 @@ public class GeneticAlgorithm {
 				index = -1;
 				
 			}
-			
-			
 		}
 	
-			
 	}
 	
 	public Individual CrossoverPMX(Individual i1, Individual i2){
 		ArrayList<City> sonPath = new ArrayList<City>();
 		int length = this.cities.size() - 1;
 		Random rand = new Random();
-		// radom nummber from 1 to length-1
-    	int r1 = rand.nextInt(length-1 - 1 + 1) + 1; 
-    	int r2 = rand.nextInt(length-1 - 1 + 1) + 1; 
+		// radom nummber from 0 to length-1
+    	int r1 = rand.nextInt(length-1 - 0 + 1) + 0; 
+    	int r2 = rand.nextInt(length-1 - 0 + 1) + 0; 
     	while(r1==r2){
-    		r1 = rand.nextInt(length-1 - 1 + 1) + 1; 
-    		r2 = rand.nextInt(length-1 - 1 + 1) + 1;
+    		r1 = rand.nextInt(length-1 - 0 + 1) + 0; 
+    		r2 = rand.nextInt(length-1 - 0 + 1) + 0;
     	}
     	//----------only for test-------------------
     	
