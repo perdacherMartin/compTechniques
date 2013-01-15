@@ -40,9 +40,27 @@ public class GeneticAlgorithm {
 		return null;
 	}
 	
+	private void mutate() {
+		int r;	
+		Individual individual;
+		Random rand = new Random();
+		for(int i = 0; i < this.getPopulationSize(); i++){
+			r = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
+			individual = this.population.get(r);
+ 
+			//begin to variate
+			double random = Math.random();
+			if(random < this.mutationRate && random >0){
+				this.population.set(i, individual.mutate());
+			}
+		}
+	}
+	
 	public void doGenerate(){
 		System.out.println("hello world!");
 		// TODO: see issue #10 
+//		mutation aufrufen mit wahrscheinlichkeit von mutationsrate aufrufen
+		mutate();
 	}
 	
 	public double getMutationRate() {
@@ -213,7 +231,6 @@ public class GeneticAlgorithm {
 	
 	private Individual CrossoverPMX(Individual i1, Individual i2){
 		ArrayList<City> sonPath = new ArrayList<City>();
-		//TODO
 		int length = this.cities.size() - 1;
 		Random rand = new Random();
 		// radom nummber from 1 to length-1
