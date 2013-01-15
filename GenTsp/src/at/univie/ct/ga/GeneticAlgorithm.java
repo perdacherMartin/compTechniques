@@ -21,6 +21,15 @@ public class GeneticAlgorithm {
 	private Individual            optimal;
 	private List<City>            cities = new ArrayList<City>(); // all available cities to generate random individuals
 	private int                   elites; 
+	
+	public List<City> getCities() {
+		return cities;
+	}
+
+	public void setCities(List<City> cities) {
+		this.cities = cities;
+	}
+
 	public GeneticAlgorithm(Properties prop){
 		this.setCities(prop.getProperty("problem"));
 		optimal = new Individual(prop.getProperty("optimal"));
@@ -156,7 +165,7 @@ public class GeneticAlgorithm {
 	}
 	
 	
-	private Individual CrossoverOX(Individual i1, Individual i2){
+	public Individual CrossoverOX(Individual i1, Individual i2){
 		
 		int length = this.cities.size() - 1;
 		Random rand = new Random();
@@ -228,7 +237,7 @@ public class GeneticAlgorithm {
 		}
 	}
 	
-	private Individual CrossoverPMX(Individual i1, Individual i2){
+	public Individual CrossoverPMX(Individual i1, Individual i2){
 		ArrayList<City> sonPath = new ArrayList<City>();
 		int length = this.cities.size() - 1;
 		Random rand = new Random();
