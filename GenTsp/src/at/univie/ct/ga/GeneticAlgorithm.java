@@ -122,7 +122,7 @@ public class GeneticAlgorithm {
 	}
 	
 	private ArrayList<Individual> rouletteSelcetion(double selectRate){
-		
+//		see issue #12
 		ArrayList<Individual> newGeneration = new ArrayList<Individual>(this.getPopulationSize());
 		double sum = 0.0;
 //		survival Probability for every Individual
