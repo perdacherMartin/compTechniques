@@ -156,7 +156,7 @@ public class GeneticAlgorithm {
 	}
 	
 	
-	private Individual CrossoverOX(Individual i1, Individual i2){
+	public Individual CrossoverOX(Individual i1, Individual i2){
 		
 		int length = this.cities.size() - 1;
 		Random rand = new Random();
@@ -200,35 +200,52 @@ public class GeneticAlgorithm {
 		for(int i=min;i<=max;i++){
 			sonPath.set(i, i1.cities.get(i));
 		}
+	    boolean flag = false;
 	    
 		for(int j=0;j<=length;j++){
 			
-			for(int k=min;k<=max;k++){
-				if(i2.cities.get(j).getNumber()== i1.cities.get(k).getNumber()){
-					index = i1.cities.indexOf(i1.cities.get(k));
-				}
-			}
-			
-			if(index > -1){
-				if(j>=min && j<=max){
-					
-				} else {
-					sonPath.set(j, i2.cities.get(index));
-				}
+			if(j>=min && j<=max){
 				
 			} else {
-				if(j>=min && j<=max){
-					
-				} else {
-					sonPath.set(j, i2.cities.get(j));
+				
+				for(int k=min;k<=max;k++){
+					if(i2.cities.get(j).getNumber()== i1.cities.get(k).getNumber()){
+						index = i1.cities.indexOf(i1.cities.get(k));
+					}
 				}
 				
+				if(index > -1){
+					do{
+						flag = false;
+						
+						for(int k=min;k<=max;k++){
+							
+							if(i2.cities.get(index).getNumber()== i1.cities.get(k).getNumber()){
+								index = i1.cities.indexOf(i1.cities.get(k));
+								flag = true;
+								break;
+							} 
+						}
+					}while(flag);
+					
+					sonPath.set(j, i2.cities.get(index));
+					
+					
+				} else {
+					
+					sonPath.set(j, i2.cities.get(j));
+				}
+				index = -1;
+				
 			}
-			index = -1;
+			
+			
 		}
+	
+			
 	}
 	
-	private Individual CrossoverPMX(Individual i1, Individual i2){
+	public Individual CrossoverPMX(Individual i1, Individual i2){
 		ArrayList<City> sonPath = new ArrayList<City>();
 		int length = this.cities.size() - 1;
 		Random rand = new Random();
