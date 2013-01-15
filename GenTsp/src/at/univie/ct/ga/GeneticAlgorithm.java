@@ -21,6 +21,15 @@ public class GeneticAlgorithm {
 	private Individual            optimal;
 	private List<City>            cities = new ArrayList<City>(); // all available cities to generate random individuals
 	private int                   elites; 
+	
+	public List<City> getCities() {
+		return cities;
+	}
+
+	public void setCities(List<City> cities) {
+		this.cities = cities;
+	}
+
 	public GeneticAlgorithm(Properties prop){
 		this.setCities(prop.getProperty("problem"));
 		optimal = new Individual(prop.getProperty("optimal"));

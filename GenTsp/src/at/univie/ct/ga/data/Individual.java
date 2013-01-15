@@ -32,6 +32,14 @@ public class Individual implements Comparable<Individual>{
     	return roundtrip;
     }
     
+	public ArrayList<City> getCities() {
+		return cities;
+	}
+
+	public void setCities(ArrayList<City> cities) {
+		this.cities = cities;
+	}
+
 	public void calculateRoundtrip(){
     	roundtrip = 0.0;
     	City previous=null, first=null;
