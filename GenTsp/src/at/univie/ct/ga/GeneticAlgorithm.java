@@ -143,29 +143,6 @@ public class GeneticAlgorithm {
 		return this.population.get(r);
 	}
 	
-	private ArrayList<Individual> rouletteSelcetion(double selectRate){
-//		TODO
-//		see issue #12
-		ArrayList<Individual> newGeneration = new ArrayList<Individual>(this.getPopulationSize());
-		double sum = 0.0;
-//		survival Probability for every Individual
-		double[] survivalProbability = new double[this.getPopulationSize()];
-		
-		for(Individual indi: this.population){
-			sum = sum + indi.getFitness();
-		}
-		for(int i=0; i<this.getPopulationSize();i++){
-			survivalProbability[i] = this.population.get(i).getFitness()/sum;
-		}
-		for(int j=0; j<this.getPopulationSize();j++){
-			if(survivalProbability[j] > selectRate){
-				newGeneration.add(j, this.population.get(j));
-			} else {
-				newGeneration.add(j, createRandomIndividual());
-			}
-		}
-		return newGeneration;
-	}
 	
 	public Individual createRandomIndividual(){
 		ArrayList<City> ind = new ArrayList<City>(cities);
