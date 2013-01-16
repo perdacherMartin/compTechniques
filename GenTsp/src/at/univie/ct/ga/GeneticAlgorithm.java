@@ -45,7 +45,8 @@ public class GeneticAlgorithm {
 	
 	public ArrayList<Individual> selectElites(int count){
 		// TODO: see issue #9
-		return null;
+		ArrayList<Individual> best = new ArrayList<Individual>(count);
+		return best;
 	}
 	
 	private void mutate() {
@@ -67,8 +68,15 @@ public class GeneticAlgorithm {
 	public void doGenerate(){
 		System.out.println("hello world!");
 		// TODO: see issue #10 
+//		double selectRate = 0.1;
+//		ArrayList<Individual> newGeneration = rouletteSelcetion(selectRate);
+//		ArrayList<Individual> best = selectElites(this.getElites());
+//		for(int i= 0; i<this.getElites();i++){
+//			newGeneration.set(i, best.get(i));
+//		}
 //		mutation aufrufen mit wahrscheinlichkeit von mutationsrate aufrufen
 		mutate();
+//		SelectAndCrossover();
 	}
 	
 	public double getMutationRate() {
@@ -109,19 +117,34 @@ public class GeneticAlgorithm {
 	}
 	
 	
-	private Individual getElternteil(){
+	private Individual getElternteil(double selectRate){
 		// TODO: issue #3
 		int r;	
 		Individual individual = null;
 		Random rand = new Random();
-		r = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
-		for(int i = 0; i < this.getPopulationSize(); i++){
-			individual = this.population.get(r);
+		double sum = 0.0;
+		double survivalProbability = 0.0;
+		boolean flag = true;
+		
+		for(Individual indi: this.population){
+			sum = sum + indi.getFitness();
 		}
-		return individual;
+		
+		
+		do {
+			r = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
+			survivalProbability = this.population.get(r).getFitness()/sum;
+			if(survivalProbability > selectRate){
+				flag = false;
+				
+			}
+		}while(flag);
+		
+		return this.population.get(r);
 	}
 	
 	private ArrayList<Individual> rouletteSelcetion(double selectRate){
+//		TODO
 //		see issue #12
 		ArrayList<Individual> newGeneration = new ArrayList<Individual>(this.getPopulationSize());
 		double sum = 0.0;
@@ -151,21 +174,9 @@ public class GeneticAlgorithm {
 		return new Individual(ind);
 	}
 	
-	private Individual SelectAndCrossover(){
-//		Individual i1 = this.getElternteil();
-//		Individual i2 = this.getElternteil();
-		
-		int r1, r2;
-		Individual i1, i2;
-		Random rand = new Random();
-		r1 = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
-		r2 = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
-		while(r1==r2){
-			r1 = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
-			r2 = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
-		}
-		i1 = this.population.get(r1);
-		i2 = this.population.get(r1);
+	private Individual SelectAndCrossover(double selectRate){
+		Individual i1 = this.getElternteil(selectRate);
+		Individual i2 = this.getElternteil(selectRate);
 		
 		Individual child = null;
 		
