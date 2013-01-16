@@ -8,13 +8,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+import at.univie.ct.ga.data.City;
 import at.univie.ct.ga.data.Individual;
 
 public class GeneticAlgorithmTest {
 
-	@Test
+	@Ignore
 	public void test() {
 		try {
 			Properties prop = new Properties();	
@@ -41,7 +43,7 @@ public class GeneticAlgorithmTest {
 		
 	}
 	
-	@Test
+	@Ignore
 	public void testCrossover() {
 		Properties prop = new Properties();	
 		
@@ -67,5 +69,27 @@ public class GeneticAlgorithmTest {
 		assertTrue(ga.getCities().containsAll(childPMX.getCities()));		
 	}
 
+	@Test
+	public void testGetEltern(){
+		Properties prop = new Properties();	
+		
+		try {
+			prop.load(new FileInputStream("information.properties"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		GeneticAlgorithm ga = new GeneticAlgorithm(prop);
+		Individual indi = ga.getElternteil(0.01);
+		if(indi == null){
+			System.out.println("Null");
+		} else {
+			for(City c: indi.getCities()){
+				System.out.print(c.getNumber() + " ");
+			}
+		}
+		
+	}
 
 }
