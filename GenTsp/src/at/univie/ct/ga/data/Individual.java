@@ -24,12 +24,14 @@ public class Individual implements Comparable<Individual>{
     	calculateRoundtrip();
     }
     
+    
     /**
      * function of calculate the fitness
      */
     public double getFitness(){
     	// TODO: see issue #1, calculate fitness like in the presentation defined!
-    	return roundtrip;
+    	double fitness = 1/this.roundtrip;
+    	return fitness;
     }
     
 	public ArrayList<City> getCities() {
@@ -60,7 +62,7 @@ public class Individual implements Comparable<Individual>{
      * Variation
      * Generates two random cities, and exchange their position.
      *
-     * @return Object Individual
+     * @return new Individual
      */
 	public Individual mutate(){
 		// TODO: issue #2
