@@ -16,6 +16,7 @@ import at.univie.ct.ga.data.Individual;
 
 public class GeneticAlgorithm {
 	private double                mutationRate;
+	private double                selectRate;
 	private CrossoverType 		  crossover;
 	private List<Individual>      population = new ArrayList<Individual>();
 	private Individual            optimal;
@@ -34,6 +35,7 @@ public class GeneticAlgorithm {
 		this.setCities(prop.getProperty("problem"));
 		optimal = new Individual(prop.getProperty("optimal"));
 		this.setMutationRate(Double.parseDouble(prop.getProperty("mutationRate")));
+		this.setSelectRate(Double.parseDouble(prop.getProperty("selectRate")));
 		int populationSize = Integer.parseInt(prop.getProperty("populationSize"));
 		this.setCrossover(prop.getProperty("crossoverMethode"));
 		this.setElites(Integer.parseInt(prop.getProperty("eliten")));
@@ -117,7 +119,7 @@ public class GeneticAlgorithm {
 	}
 	
 	
-	private Individual getElternteil(double selectRate){
+	public Individual getElternteil(double selectRate){
 		// TODO: issue #3
 		int r;	
 		Individual individual = null;
@@ -287,12 +289,12 @@ public class GeneticAlgorithm {
 		ArrayList<City> sonPath = new ArrayList<City>();
 		int length = this.cities.size() - 1;
 		Random rand = new Random();
-		// radom nummber from 0 to length-1
-    	int r1 = rand.nextInt(length-1 - 0 + 1) + 0; 
-    	int r2 = rand.nextInt(length-1 - 0 + 1) + 0; 
+		// radom nummber from 0 to length
+    	int r1 = rand.nextInt(length - 0 + 1) + 0; 
+    	int r2 = rand.nextInt(length - 0 + 1) + 0; 
     	while(r1==r2){
-    		r1 = rand.nextInt(length-1 - 0 + 1) + 0; 
-    		r2 = rand.nextInt(length-1 - 0 + 1) + 0;
+    		r1 = rand.nextInt(length - 0 + 1) + 0; 
+    		r2 = rand.nextInt(length - 0 + 1) + 0;
     	}
     	//----------only for test-------------------
     	
@@ -353,6 +355,14 @@ public class GeneticAlgorithm {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public double getSelectRate() {
+		return selectRate;
+	}
+
+	public void setSelectRate(double selectRate) {
+		this.selectRate = selectRate;
 	}
 	
 }
