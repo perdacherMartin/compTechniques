@@ -66,9 +66,9 @@ public class GeneticAlgorithm {
 		Individual individual;
 		Random rand = new Random();
 		for(int i = 0; i < this.getPopulationSize(); i++){
-			r = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
-			
-//			r = rand.nextInt(this.getPopulationSize()-1 - this.elites + 1) + this.elites;
+//			r = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
+//			die besten Individual werden nicht geaendert
+			r = rand.nextInt(this.getPopulationSize()-1 - this.elites + 1) + this.elites;
 			individual = this.population.get(r);
  
 			//begin to variate
