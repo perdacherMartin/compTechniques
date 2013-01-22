@@ -67,6 +67,8 @@ public class GeneticAlgorithm {
 		Random rand = new Random();
 		for(int i = 0; i < this.getPopulationSize(); i++){
 			r = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
+			
+//			r = rand.nextInt(this.getPopulationSize()-1 - this.elites + 1) + this.elites;
 			individual = this.population.get(r);
  
 			//begin to variate
@@ -77,37 +79,26 @@ public class GeneticAlgorithm {
 		}
 	}
 	
+//	Ich bin nicht sicher, ob dieser Teil richtig ist oder nicht.
 	public void doGenerate(){
-		System.out.println("hello world!");
+//		System.out.println("hello world!");
 		// TODO: see issue #10 
-
-//		mutation aufrufen mit wahrscheinlichkeit von mutationsrate aufrufen
+        ArrayList<Individual> temp = new ArrayList<Individual>(this.getPopulationSize());
+        ArrayList<Individual> best = this.selectElites(this.elites);
+        for(int i=0;i<this.elites;i++){
+        	temp.add(best.get(i));
+        }
+        for(int k= this.elites; k<this.getPopulationSize();k++){
+        	temp.add(k, SelectAndCrossover());
+        }
+        this.setPopulation(temp);
+//      mutation aufrufen mit wahrscheinlichkeit von mutationsrate aufrufen
 		mutate();
+		System.out.println(best.get(0).toString());
+		
 	}
 	
-	public double getMutationRate() {
-		return mutationRate;
-	}
 
-	public void setMutationRate(double mutationRate) {
-		this.mutationRate = mutationRate;
-	}
-
-	public CrossoverType getCrossover() {
-		return crossover;
-	}
-
-	public void setCrossover(CrossoverType crossover) {
-		this.crossover = crossover;
-	}
-	
-	public int getElites() {
-		return elites;
-	}
-
-	public void setElites(int elites) {
-		this.elites = elites;
-	}
 
 	
 	public void setCrossover(String crossover) {
@@ -368,6 +359,30 @@ public class GeneticAlgorithm {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public double getMutationRate() {
+		return mutationRate;
+	}
+
+	public void setMutationRate(double mutationRate) {
+		this.mutationRate = mutationRate;
+	}
+
+	public CrossoverType getCrossover() {
+		return crossover;
+	}
+
+	public void setCrossover(CrossoverType crossover) {
+		this.crossover = crossover;
+	}
+	
+	public int getElites() {
+		return elites;
+	}
+
+	public void setElites(int elites) {
+		this.elites = elites;
 	}
 /*
 	public double getSelectRate() {
