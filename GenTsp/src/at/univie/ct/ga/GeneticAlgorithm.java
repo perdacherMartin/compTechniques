@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -50,18 +51,12 @@ public class GeneticAlgorithm {
 	
 	public ArrayList<Individual> selectElites(int count){
 		// TODO: see issue #9
+		ArrayList<Individual> temp = (ArrayList<Individual>) this.population;
 		ArrayList<Individual> best = new ArrayList<Individual>(count);
-//		double[] temp = new double[this.population.size()];
-//		for(int i=0;i<this.population.size();i++){
-//			temp[i] = this.population.get(i).getRoundtrip();
-//		}
-//		Arrays.sort(temp);
-//		for(int k=0;k<count;k++){
-//			for(int j=0;j<this.population.size();j++){
-//				if(temp[k]==this.population.get(j).roundtrip)
-//					best.add(k, this.population.get(j));
-//			}
-//		}
+		Collections.sort(temp);
+		for(int i=0;i<count;i++){
+			best.add(temp.get(i));
+		}
 		
 		return best;
 	}

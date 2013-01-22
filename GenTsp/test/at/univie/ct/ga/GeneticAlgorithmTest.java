@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.junit.Ignore;
@@ -69,7 +70,7 @@ public class GeneticAlgorithmTest {
 		assertTrue(ga.getCities().containsAll(childPMX.getCities()));		
 	}
 
-	@Test
+	@Ignore
 	public void testGetEltern(){
 		Properties prop = new Properties();	
 		
@@ -91,5 +92,30 @@ public class GeneticAlgorithmTest {
 		}
 		
 	}
+	
+	@Test
+	public void testSelectElites(){
+		Properties prop = new Properties();	
+		
+		try {
+			prop.load(new FileInputStream("information.properties"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		GeneticAlgorithm ga = new GeneticAlgorithm(prop);
+		ArrayList<Individual> indi =  ga.selectElites(3);
+		for(Individual k: ga.getPopulation()){
+			System.out.print(k.getRoundtrip() + " ");
+		}
+		System.out.print("\n");
+		for(Individual t: indi){
+			System.out.print(t.getRoundtrip() +" ");
+		}
+		
+		
+	}
+	
 
 }
