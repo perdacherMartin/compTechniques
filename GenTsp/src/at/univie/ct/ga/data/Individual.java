@@ -119,4 +119,9 @@ public class Individual implements Comparable<Individual>{
 		return 0;
 	}
 
+	public double getRoundtrip() {
+		return roundtrip;
+	}
+
+
 }

@@ -81,7 +81,7 @@ public class GeneticAlgorithmTest {
 			e.printStackTrace();
 		}
 		GeneticAlgorithm ga = new GeneticAlgorithm(prop);
-		Individual indi = ga.getElternteil(0.01);
+		Individual indi = ga.getElternteil();
 		if(indi == null){
 			System.out.println("Null");
 		} else {

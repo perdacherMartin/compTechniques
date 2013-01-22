@@ -7,16 +7,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import at.univie.ct.ga.data.City;
 import at.univie.ct.ga.data.Individual;
 
 public class GeneticAlgorithm {
 	private double                mutationRate;
-	private double                selectRate;
+//	private double                selectRate;
 	private CrossoverType 		  crossover;
 	private List<Individual>      population = new ArrayList<Individual>();
 	private Individual            optimal;
@@ -35,7 +38,7 @@ public class GeneticAlgorithm {
 		this.setCities(prop.getProperty("problem"));
 		optimal = new Individual(prop.getProperty("optimal"));
 		this.setMutationRate(Double.parseDouble(prop.getProperty("mutationRate")));
-		this.setSelectRate(Double.parseDouble(prop.getProperty("selectRate")));
+//		this.setSelectRate(Double.parseDouble(prop.getProperty("selectRate")));
 		int populationSize = Integer.parseInt(prop.getProperty("populationSize"));
 		this.setCrossover(prop.getProperty("crossoverMethode"));
 		this.setElites(Integer.parseInt(prop.getProperty("eliten")));
@@ -48,6 +51,18 @@ public class GeneticAlgorithm {
 	public ArrayList<Individual> selectElites(int count){
 		// TODO: see issue #9
 		ArrayList<Individual> best = new ArrayList<Individual>(count);
+//		double[] temp = new double[this.population.size()];
+//		for(int i=0;i<this.population.size();i++){
+//			temp[i] = this.population.get(i).getRoundtrip();
+//		}
+//		Arrays.sort(temp);
+//		for(int k=0;k<count;k++){
+//			for(int j=0;j<this.population.size();j++){
+//				if(temp[k]==this.population.get(j).roundtrip)
+//					best.add(k, this.population.get(j));
+//			}
+//		}
+		
 		return best;
 	}
 	
@@ -70,15 +85,9 @@ public class GeneticAlgorithm {
 	public void doGenerate(){
 		System.out.println("hello world!");
 		// TODO: see issue #10 
-//		double selectRate = 0.1;
-//		ArrayList<Individual> newGeneration = rouletteSelcetion(selectRate);
-//		ArrayList<Individual> best = selectElites(this.getElites());
-//		for(int i= 0; i<this.getElites();i++){
-//			newGeneration.set(i, best.get(i));
-//		}
+
 //		mutation aufrufen mit wahrscheinlichkeit von mutationsrate aufrufen
 		mutate();
-//		SelectAndCrossover();
 	}
 	
 	public double getMutationRate() {
@@ -119,7 +128,7 @@ public class GeneticAlgorithm {
 	}
 	
 	
-	public Individual getElternteil(double selectRate){
+	public Individual getElternteil(){
 		// TODO: issue #3
 		int r;	
 		Individual individual = null;
@@ -136,10 +145,19 @@ public class GeneticAlgorithm {
 		do {
 			r = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
 			survivalProbability = this.population.get(r).getFitness()/sum;
+			/*
 			if(survivalProbability > selectRate){
 				flag = false;
 				
 			}
+			*/
+			
+			double random = Math.random()/10;
+//			System.out.println("sur " + survivalProbability + " random " + random);
+			if(survivalProbability > random){
+				flag = false;
+			} 
+			
 		}while(flag);
 		
 		return this.population.get(r);
@@ -153,9 +171,9 @@ public class GeneticAlgorithm {
 		return new Individual(ind);
 	}
 	
-	private Individual SelectAndCrossover(double selectRate){
-		Individual i1 = this.getElternteil(selectRate);
-		Individual i2 = this.getElternteil(selectRate);
+	private Individual SelectAndCrossover(){
+		Individual i1 = this.getElternteil();
+		Individual i2 = this.getElternteil();
 		
 		Individual child = null;
 		
@@ -356,7 +374,7 @@ public class GeneticAlgorithm {
 		}
 		
 	}
-
+/*
 	public double getSelectRate() {
 		return selectRate;
 	}
@@ -364,5 +382,5 @@ public class GeneticAlgorithm {
 	public void setSelectRate(double selectRate) {
 		this.selectRate = selectRate;
 	}
-	
+	*/
 }
