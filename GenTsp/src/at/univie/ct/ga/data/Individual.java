@@ -141,8 +141,8 @@ public class Individual implements Comparable<Individual>{
     	for(City c: cities){
     		sb.append(c.getNumber()+ " ");
     	}
-        return sb.toString() + "  cost is "+this.getFitness() +"/n";
-//        return "Path: " + sb.toString() + "  cost is "+this.roundtrip +"/n";
+//        return "Path: " + sb.toString() + "\ncost is "+this.getFitness() +"/n";
+        return "Path: " + sb.toString() + "\ncost is "+this.roundtrip +"/n";
     }
     
 	@Override
