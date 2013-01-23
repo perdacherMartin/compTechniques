@@ -37,7 +37,7 @@ public class GeneticAlgorithm {
 
 	public GeneticAlgorithm(Properties prop){
 		this.setCities(prop.getProperty("problem"));
-		optimal = new Individual(prop.getProperty("optimal"));
+		optimal = new Individual(prop.getProperty("optimal"), this.cities);
 		this.setMutationRate(Double.parseDouble(prop.getProperty("mutationRate")));
 //		this.setSelectRate(Double.parseDouble(prop.getProperty("selectRate")));
 		int populationSize = Integer.parseInt(prop.getProperty("populationSize"));
@@ -361,6 +361,7 @@ public class GeneticAlgorithm {
 		
 	}
 	
+	
 	public double getMutationRate() {
 		return mutationRate;
 	}
@@ -393,4 +394,11 @@ public class GeneticAlgorithm {
 		this.selectRate = selectRate;
 	}
 	*/
+
+	public Individual getOptimal() {
+		return optimal;
+	}
+
+
+	
 }

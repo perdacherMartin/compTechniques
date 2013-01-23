@@ -1,6 +1,12 @@
 package at.univie.ct.ga.data;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -15,8 +21,34 @@ public class Individual implements Comparable<Individual>{
      * 	
      * @param filename
      */
-    public Individual(String filename){
+    public Individual(String filename, List<City> cities){
     	//TODO: see issue #8
+//    	ArrayList<City> cities = new ArrayList<City>();
+    	try {
+			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
+			for (String str = reader.readLine(); str != null; str = reader.readLine()) {
+				// find the city coordinates from the file
+				if (str.matches("([0-9]+)")) {
+					for(City c: cities){
+						if(Integer.parseInt(str) == c.getNumber()){
+							this.cities.add(c);
+						}
+					}
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("Could not find file " + filename + "! Class: GeneticAlgorithm!" );
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			System.err.println("Error in parsing data! Class: GeneticAlgorithm!");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.err.println("IOException! Class: GeneticAlgorithm!");
+			e.printStackTrace();
+		}
+		
+		calculateRoundtrip();
+	    
     }
     
     public Individual(ArrayList<City> cities){
@@ -110,6 +142,7 @@ public class Individual implements Comparable<Individual>{
     		sb.append(c.getNumber()+ " ");
     	}
         return sb.toString() + "  cost is "+this.getFitness() +"/n";
+//        return "Path: " + sb.toString() + "  cost is "+this.roundtrip +"/n";
     }
     
 	@Override

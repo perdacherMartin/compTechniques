@@ -93,7 +93,7 @@ public class GeneticAlgorithmTest {
 		
 	}
 	
-	@Test
+	@Ignore
 	public void testSelectElites(){
 		Properties prop = new Properties();	
 		
@@ -116,6 +116,25 @@ public class GeneticAlgorithmTest {
 		
 		
 	}
-	
+	@Test
+	public void testOptimal(){
+		Properties prop = new Properties();	
+		
+		try {
+			prop.load(new FileInputStream("information.properties"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		GeneticAlgorithm ga = new GeneticAlgorithm(prop);
+		Individual temp = ga.getOptimal();
+		for(City c:temp.cities){
+			System.out.print(c.getNumber() + " ");
+		}
+		System.out.print("\n");
+		System.out.println("Roundtrip: " + temp.getRoundtrip());
+		
+	}
 
 }

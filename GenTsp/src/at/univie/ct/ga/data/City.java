@@ -13,6 +13,7 @@ public class City {
 	public City(){
 		
 	}
+	
 	public City(int number, double x, double y) {
 		this.setNumber(number);
 		this.x = x;
