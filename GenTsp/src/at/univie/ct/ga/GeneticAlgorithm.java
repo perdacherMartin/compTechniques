@@ -47,16 +47,16 @@ public class GeneticAlgorithm {
 		
 	}	
 	
-	public ArrayList<Individual> selectElites(int count){
-		// TODO: see issue #9
-		ArrayList<Individual> temp = (ArrayList<Individual>) this.population;
-		ArrayList<Individual> best = new ArrayList<Individual>(count);
-		Collections.sort(temp);
-		for(int i=0;i<count;i++){
-			best.add(temp.get(i));
+	public List<Individual> selectElites(){
+		List<Individual> elites = new ArrayList<Individual>(); 
+		List<Individual> clonedPop = new ArrayList<Individual>(this.population);
+		Collections.sort(clonedPop);
+		
+		for ( int i = 0 ; i < this.getElites() ; i++ ){
+			elites.add(clonedPop.get(i));
 		}
 		
-		return best;
+		return elites;
 	}
 	
 	private Individual mutate(Individual ind) {
@@ -70,7 +70,7 @@ public class GeneticAlgorithm {
 		return ind;
 	}
 	
-//	Ich bin nicht sicher, ob dieser Teil richtig ist oder nicht.
+
 	public void doGenerate(){
 		// TODO: see issue #10
 		List<Individual> nextGeneration = new ArrayList<Individual>();
@@ -79,19 +79,7 @@ public class GeneticAlgorithm {
 			nextGeneration.add(this.SelectAndCrossover());
 		}
 		
-		
-//        ArrayList<Individual> temp = new ArrayList<Individual>(this.getPopulationSize());
-//        ArrayList<Individual> best = this.selectElites(this.elites);
-//        for(int i=0;i<this.elites;i++){
-//        	temp.add(best.get(i));
-//        }
-//        for(int k= this.elites; k<this.getPopulationSize();k++){
-//        	temp.add(k, SelectAndCrossover());
-//        }
-//        this.setPopulation(temp);
-////      mutation aufrufen mit wahrscheinlichkeit von mutationsrate aufrufen
-//		mutate();
-//		System.out.println(best.get(0).toString());
+		nextGeneration.addAll(selectElites());
 		
 	}
 	

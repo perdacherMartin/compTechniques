@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Ignore;
@@ -89,7 +90,7 @@ public class GeneticAlgorithmTest {
 		
 	}
 	
-	@Ignore
+	@Test
 	public void testSelectElites(){
 		Properties prop = new Properties();	
 		
@@ -101,15 +102,10 @@ public class GeneticAlgorithmTest {
 			e.printStackTrace();
 		}
 		GeneticAlgorithm ga = new GeneticAlgorithm(prop);
-		ArrayList<Individual> indi =  ga.selectElites(3);
-		for(Individual k: ga.getPopulation()){
-			System.out.print(k.getRoundtrip() + " ");
-		}
-		System.out.print("\n");
-		for(Individual t: indi){
-			System.out.print(t.getRoundtrip() +" ");
-		}
 		
+		List<Individual> elites =  new ArrayList<Individual>(ga.selectElites());
+		
+		assertEquals(elites.size(), Integer.parseInt(prop.getProperty("eliten")));
 		
 	}
 	
