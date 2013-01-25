@@ -1,8 +1,13 @@
 package at.univie.ct.ga;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.io.FileInputStream;
+
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
+import at.univie.ct.ga.plot.DeviationPlot;
 
 public class Main {
 	
@@ -19,6 +24,12 @@ public class Main {
 		}
 		
 		try{
+			DeviationPlot plot;
+			XYSeries best = new XYSeries("best");
+			XYSeries average = new XYSeries("average");
+			XYSeries worst = new XYSeries("worst");
+			XYSeriesCollection dataset = new XYSeriesCollection();
+			
 			Properties prop = new Properties();	
 			prop.load(new FileInputStream("information.properties"));
 
@@ -37,10 +48,18 @@ public class Main {
 			int generations = Integer.parseInt(prop.getProperty("generationen"));
 			for ( int i=0 ; i < generations ; i++ ){
 				ga.doGenerate();
-				
-				System.out.println("" + i + ";" + Double.toString(ga.getDistanceToOpt()).replace('.', ',') + ";"  + Double.toString(ga.getAverageDistance()).replace('.', ',') + ";" + Double.toString(ga.getWorstDistance()).replace('.', ','));
+				best.add((double)i,ga.getDistanceToOpt());
+				average.add((double)i, ga.getAverageDistance());
+				worst.add((double)i, ga.getWorstDistance());
+				System.out.println("" + i);
+				//System.out.println("" + i + ";" + Double.toString(ga.getDistanceToOpt()).replace('.', ',') + ";"  + Double.toString(ga.getAverageDistance()).replace('.', ',') + ";" + Double.toString(ga.getWorstDistance()).replace('.', ','));
 			}
 			
+			dataset.addSeries(best);
+			dataset.addSeries(average);
+			dataset.addSeries(worst);
+			
+			plot = new DeviationPlot(dataset);
 			
 		}catch(IOException e){
 			System.err.println("Could not open Propertyfile!");
