@@ -54,12 +54,38 @@ public class GeneticAlgorithm {
 	}
 	
 	public double getDistanceToOpt(){
-		double optFitness = optimal.getRoundtrip();
-		double bestFitness = getBestRoundtrip();
+		double optroundtripp = optimal.getRoundtrip();
+		double bestRoundtripp = getBestRoundtrip();
 		
-		return bestFitness - optFitness;
+		return bestRoundtripp - optroundtripp;
 	}
 	
+	public double getAverageDistance(){
+		double sum=0.0;
+		double optimalroundtripp = optimal.getRoundtrip();
+		for ( Individual ind : this.getPopulation() ){
+			sum += ind.getRoundtrip();
+		}
+		
+		return sum / this.getPopulationSize() - optimalroundtripp;
+	}
+	
+	public double getWorstDistance(){
+		double optroundtripp = optimal.getRoundtrip();
+		double bestRoundtripp = getWorstRoundtrip();
+			
+		return bestRoundtripp - optroundtripp;
+				
+	}
+	
+	
+	private double getWorstRoundtrip() {
+		List<Individual> clonedPop = new ArrayList<Individual>(this.population);
+		Collections.sort(clonedPop);
+		
+		return clonedPop.get(this.getPopulationSize()-1).getRoundtrip();
+	}
+
 	public List<Individual> selectElites(){
 		List<Individual> elites = new ArrayList<Individual>(); 
 		List<Individual> clonedPop = new ArrayList<Individual>(this.population);

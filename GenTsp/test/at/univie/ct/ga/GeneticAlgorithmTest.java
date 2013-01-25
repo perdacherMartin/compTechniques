@@ -13,7 +13,6 @@ import java.util.Properties;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import at.univie.ct.ga.data.City;
 import at.univie.ct.ga.data.Individual;
 
 public class GeneticAlgorithmTest {
@@ -126,13 +125,9 @@ public class GeneticAlgorithmTest {
 			e.printStackTrace();
 		}
 		GeneticAlgorithm ga = new GeneticAlgorithm(prop);
-		Individual temp = ga.getOptimal();
-		for(City c:temp.cities){
-			System.out.print(c.getNumber() + " ");
-		}
-		System.out.print("\n");
-		System.out.println("Roundtrip: " + temp.getRoundtrip());
-		
+		System.out.println("rundreise der optimalen lösung:" + ga.getOptimal().getRoundtrip());
+		assertTrue(ga.getCities().containsAll(ga.getOptimal().getCities()));
+		assertTrue(ga.getOptimal().getCities().containsAll( ga.getCities()));
 	}
 	
 	@Test
@@ -152,6 +147,10 @@ public class GeneticAlgorithmTest {
 		
 		assertEquals(ga.getPopulationSize(), Integer.parseInt(prop.getProperty("populationSize")));  
 		
+		for ( Individual i1 : ga.getPopulation() ){
+			assertTrue(i1.getCities().containsAll(ga.getCities()));
+			assertTrue(ga.getCities().containsAll(i1.getCities()));
+		}
 	}
 
 }

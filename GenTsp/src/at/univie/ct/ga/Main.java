@@ -37,7 +37,8 @@ public class Main {
 			int generations = Integer.parseInt(prop.getProperty("generationen"));
 			for ( int i=0 ; i < generations ; i++ ){
 				ga.doGenerate();
-				System.out.println("" + i + ";" + ga.getDistanceToOpt());
+				
+				System.out.println("" + i + ";" + Double.toString(ga.getDistanceToOpt()).replace('.', ',') + ";"  + Double.toString(ga.getAverageDistance()).replace('.', ',') + ";" + Double.toString(ga.getWorstDistance()).replace('.', ','));
 			}
 			
 			
