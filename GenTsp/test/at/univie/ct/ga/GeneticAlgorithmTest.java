@@ -70,7 +70,7 @@ public class GeneticAlgorithmTest {
 		assertTrue(ga.getCities().containsAll(childPMX.getCities()));		
 	}
 
-	@Ignore
+	@Test
 	public void testGetEltern(){
 		Properties prop = new Properties();	
 		
@@ -81,15 +81,11 @@ public class GeneticAlgorithmTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		GeneticAlgorithm ga = new GeneticAlgorithm(prop);
 		Individual indi = ga.getElternteil();
-		if(indi == null){
-			System.out.println("Null");
-		} else {
-			for(City c: indi.getCities()){
-				System.out.print(c.getNumber() + " ");
-			}
-		}
+
+		assertTrue(ga.getPopulation().contains(indi));
 		
 	}
 	
@@ -116,6 +112,7 @@ public class GeneticAlgorithmTest {
 		
 		
 	}
+	
 	@Test
 	public void testOptimal(){
 		Properties prop = new Properties();	

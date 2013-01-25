@@ -2,7 +2,6 @@ package at.univie.ct.ga;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import at.univie.ct.ga.data.City;
 import at.univie.ct.ga.data.Individual;
@@ -81,7 +79,6 @@ public class GeneticAlgorithm {
 	
 //	Ich bin nicht sicher, ob dieser Teil richtig ist oder nicht.
 	public void doGenerate(){
-//		System.out.println("hello world!");
 		// TODO: see issue #10 
         ArrayList<Individual> temp = new ArrayList<Individual>(this.getPopulationSize());
         ArrayList<Individual> best = this.selectElites(this.elites);
@@ -115,38 +112,26 @@ public class GeneticAlgorithm {
 	
 	
 	public Individual getElternteil(){
-		// TODO: issue #3
-		int r;	
-		Individual individual = null;
+		double[] indArray = new double[population.size()]; // array containing the cumulative survival probability to be selected for each individual
+		
 		Random rand = new Random();
 		double sum = 0.0;
+		double cumSum=0.0;
 		double survivalProbability = 0.0;
-		boolean flag = true;
 		
-		for(Individual indi: this.population){
-			sum = sum + indi.getFitness();
+		
+		for(Individual indi : this.population){
+			sum = sum + indi.getFitness();	
 		}
 		
+		for ( int i = 0 ; i < this.population.size() ; ++i  ){
+			cumSum += this.population.get(i).getFitness()/sum;
+			indArray[i] = cumSum;
+		}
 		
-		do {
-			r = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
-			survivalProbability = this.population.get(r).getFitness()/sum;
-			/*
-			if(survivalProbability > selectRate){
-				flag = false;
-				
-			}
-			*/
-			
-			double random = Math.random()/10;
-//			System.out.println("sur " + survivalProbability + " random " + random);
-			if(survivalProbability > random){
-				flag = false;
-			} 
-			
-		}while(flag);
+		survivalProbability = rand.nextDouble(); // generates random number between zero and 1
 		
-		return this.population.get(r);
+		return this.population.get(-1 * Arrays.binarySearch(indArray, survivalProbability) -1 );
 	}
 	
 	
