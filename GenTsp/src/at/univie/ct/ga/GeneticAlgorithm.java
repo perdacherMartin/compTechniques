@@ -37,7 +37,6 @@ public class GeneticAlgorithm {
 		this.setCities(prop.getProperty("problem"));
 		optimal = new Individual(prop.getProperty("optimal"), this.cities);
 		this.setMutationRate(Double.parseDouble(prop.getProperty("mutationRate")));
-//		this.setSelectRate(Double.parseDouble(prop.getProperty("selectRate")));
 		int populationSize = Integer.parseInt(prop.getProperty("populationSize"));
 		this.setCrossover(prop.getProperty("crossoverMethode"));
 		this.setElites(Integer.parseInt(prop.getProperty("eliten")));
@@ -46,6 +45,20 @@ public class GeneticAlgorithm {
 		}
 		
 	}	
+	
+	private double getBestRoundtrip(){
+		List<Individual> clonedPop = new ArrayList<Individual>(this.population);
+		Collections.sort(clonedPop);
+		
+		return clonedPop.get(0).getRoundtrip();
+	}
+	
+	public double getDistanceToOpt(){
+		double optFitness = optimal.getRoundtrip();
+		double bestFitness = getBestRoundtrip();
+		
+		return bestFitness - optFitness;
+	}
 	
 	public List<Individual> selectElites(){
 		List<Individual> elites = new ArrayList<Individual>(); 
@@ -79,6 +92,8 @@ public class GeneticAlgorithm {
 		}
 		
 		nextGeneration.addAll(selectElites());
+		
+		this.setPopulation(nextGeneration);
 	}
 	
 
@@ -297,7 +312,7 @@ public class GeneticAlgorithm {
 		return population;
 	}
 
-	public void setPopulation(ArrayList<Individual> population) {
+	public void setPopulation(List<Individual> population) {
 		this.population = population;
 	}
 	
