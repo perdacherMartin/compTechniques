@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import at.univie.ct.ga.GeneticAlgorithm;

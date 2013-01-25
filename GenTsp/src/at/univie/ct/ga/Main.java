@@ -17,18 +17,17 @@ public class Main {
 			System.err.println("Example: jar ... at.univie.ct.ga.Main information.properties");
 			System.exit(1);
 		}
+		
 		try{
 			Properties prop = new Properties();	
-			System.out.println(args[0]);
 			prop.load(new FileInputStream("information.properties"));
 
-			System.out.println("Using " + prop.getProperty("problem") + " for problem input.");
-			System.out.println("Comparing with optimal solution " + prop.getProperty("optimal"));
-			System.out.println("Populationsize: " + prop.getProperty("populationSize"));
-			System.out.println("Using a mutation rate of " + prop.getProperty("mutationRate") );
-//			System.out.println("Using a select rate of " + prop.getProperty("selectRate") );
-			System.out.println("Using the " + prop.getProperty("crossoverMethode") + " as crossover method");
-			System.out.println("Using " + prop.getProperty("eliten") + " elites");
+//			System.out.println("Using " + prop.getProperty("problem") + " for problem input.");
+//			System.out.println("Comparing with optimal solution " + prop.getProperty("optimal"));
+//			System.out.println("Populationsize: " + prop.getProperty("populationSize"));
+//			System.out.println("Using a mutation rate of " + prop.getProperty("mutationRate") );
+//			System.out.println("Using the " + prop.getProperty("crossoverMethode") + " as crossover method");
+//			System.out.println("Using " + prop.getProperty("eliten") + " elites");
 			
 			GeneticAlgorithm ga = new GeneticAlgorithm(prop);
 
