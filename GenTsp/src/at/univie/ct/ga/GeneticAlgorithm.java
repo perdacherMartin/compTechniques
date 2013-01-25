@@ -59,22 +59,15 @@ public class GeneticAlgorithm {
 		return best;
 	}
 	
-	private void mutate() {
-//		int r;	
-//		Individual individual;
-//		Random rand = new Random();
-//		for(int i = 0; i < this.getPopulationSize(); i++){
-////			r = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
-////			die besten Individual werden nicht geaendert
-//			r = rand.nextInt(this.getPopulationSize()-1 - this.elites + 1) + this.elites;
-//			individual = this.population.get(r);
-// 
-//			//begin to variate
-//			double random = Math.random();
-//			if(random > this.mutationRate){
-//				this.population.set(i, individual.mutate());
-//			}
-//		}
+	private Individual mutate(Individual ind) {
+		Random rand = new Random();
+		double probability = rand.nextDouble(); 
+	
+		if ( this.getMutationRate() >=  probability ){
+			ind.mutate();
+		}
+		
+		return ind;
 	}
 	
 //	Ich bin nicht sicher, ob dieser Teil richtig ist oder nicht.
@@ -85,6 +78,7 @@ public class GeneticAlgorithm {
 		for ( int i = 0 ; i < population.size() - this.getElites() ; ++i ){
 			nextGeneration.add(this.SelectAndCrossover());
 		}
+		
 		
 //        ArrayList<Individual> temp = new ArrayList<Individual>(this.getPopulationSize());
 //        ArrayList<Individual> best = this.selectElites(this.elites);
@@ -163,7 +157,8 @@ public class GeneticAlgorithm {
 				break;
 		}
 		
-		return child;
+		
+		return mutate(child);
 	}
  
 	private void oxTemp(int min, int max,int length, ArrayList<City> sonPath,Individual i1, Individual i2){
