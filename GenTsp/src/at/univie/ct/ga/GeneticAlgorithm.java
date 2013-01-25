@@ -60,38 +60,44 @@ public class GeneticAlgorithm {
 	}
 	
 	private void mutate() {
-		int r;	
-		Individual individual;
-		Random rand = new Random();
-		for(int i = 0; i < this.getPopulationSize(); i++){
-//			r = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
-//			die besten Individual werden nicht geaendert
-			r = rand.nextInt(this.getPopulationSize()-1 - this.elites + 1) + this.elites;
-			individual = this.population.get(r);
- 
-			//begin to variate
-			double random = Math.random();
-			if(random > this.mutationRate){
-				this.population.set(i, individual.mutate());
-			}
-		}
+//		int r;	
+//		Individual individual;
+//		Random rand = new Random();
+//		for(int i = 0; i < this.getPopulationSize(); i++){
+////			r = rand.nextInt(this.getPopulationSize()-1 - 0 + 1) + 0;
+////			die besten Individual werden nicht geaendert
+//			r = rand.nextInt(this.getPopulationSize()-1 - this.elites + 1) + this.elites;
+//			individual = this.population.get(r);
+// 
+//			//begin to variate
+//			double random = Math.random();
+//			if(random > this.mutationRate){
+//				this.population.set(i, individual.mutate());
+//			}
+//		}
 	}
 	
 //	Ich bin nicht sicher, ob dieser Teil richtig ist oder nicht.
 	public void doGenerate(){
-		// TODO: see issue #10 
-        ArrayList<Individual> temp = new ArrayList<Individual>(this.getPopulationSize());
-        ArrayList<Individual> best = this.selectElites(this.elites);
-        for(int i=0;i<this.elites;i++){
-        	temp.add(best.get(i));
-        }
-        for(int k= this.elites; k<this.getPopulationSize();k++){
-        	temp.add(k, SelectAndCrossover());
-        }
-        this.setPopulation(temp);
-//      mutation aufrufen mit wahrscheinlichkeit von mutationsrate aufrufen
-		mutate();
-		System.out.println(best.get(0).toString());
+		// TODO: see issue #10
+		List<Individual> nextGeneration = new ArrayList<Individual>();
+		
+		for ( int i = 0 ; i < population.size() - this.getElites() ; ++i ){
+			nextGeneration.add(this.SelectAndCrossover());
+		}
+		
+//        ArrayList<Individual> temp = new ArrayList<Individual>(this.getPopulationSize());
+//        ArrayList<Individual> best = this.selectElites(this.elites);
+//        for(int i=0;i<this.elites;i++){
+//        	temp.add(best.get(i));
+//        }
+//        for(int k= this.elites; k<this.getPopulationSize();k++){
+//        	temp.add(k, SelectAndCrossover());
+//        }
+//        this.setPopulation(temp);
+////      mutation aufrufen mit wahrscheinlichkeit von mutationsrate aufrufen
+//		mutate();
+//		System.out.println(best.get(0).toString());
 		
 	}
 	

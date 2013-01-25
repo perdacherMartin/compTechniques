@@ -44,7 +44,7 @@ public class GeneticAlgorithmTest {
 		
 	}
 	
-	@Ignore
+	@Test
 	public void testCrossover() {
 		Properties prop = new Properties();	
 		

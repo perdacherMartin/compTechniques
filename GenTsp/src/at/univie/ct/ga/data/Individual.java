@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -96,43 +97,17 @@ public class Individual implements Comparable<Individual>{
      *
      * @return new Individual
      */
-	public Individual mutate(){
-		// TODO: issue #2
+	public void mutate(){
 		Random rand = new Random();
-    	int r1 = rand.nextInt(this.cities.size() - 1 + 1) + 1;
-    	int r2 = rand.nextInt(this.cities.size() - 1 + 1) + 1;
-    	while(r1 == r2){
-    		r2 = rand.nextInt(this.cities.size() - 1 + 1) + 1;
-    	}
-    	City city1 = new City();
-    	City city2 = new City();
-    	City temp = new City();
-    	int index1 = 0;
-    	int index2 = 0;
-    	for(City c: this.cities){
-    		// ------only for test----------
-//    		System.out.print(c.getNumber() + " ");
-    		//-----------------------------
-    		if(c.getNumber() == r1){
-    			city1 = c;
-    			index1 = this.cities.indexOf(c);
-    		}
-    		if(c.getNumber() == r2){
-    			city2 = c;
-    			index2 = this.cities.indexOf(c);
-    		}
-    	}
-    	temp = city1;
-    	this.cities.set(index1, city2);
-    	this.cities.set(index2, temp);
-    	// ----------only for test----------------
-//    	System.out.print("\n");
-//    	for(City x: this.cities){
-//    		System.out.print(x.getNumber() + " ");
-//    	}
-    	//--------------------------------------
+    	int index1 = rand.nextInt(this.cities.size() );
+    	int index2 = rand.nextInt(this.cities.size() );
     	
-		return new Individual(this.cities);
+    	while(index1 == index2){
+    		index2 = rand.nextInt(this.cities.size());
+    	}
+    	
+    	Collections.swap(this.cities, index1, index2);
+    	
 	}
    
  
