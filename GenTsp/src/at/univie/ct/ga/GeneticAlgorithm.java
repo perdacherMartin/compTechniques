@@ -72,7 +72,6 @@ public class GeneticAlgorithm {
 	
 
 	public void doGenerate(){
-		// TODO: see issue #10
 		List<Individual> nextGeneration = new ArrayList<Individual>();
 		
 		for ( int i = 0 ; i < population.size() - this.getElites() ; ++i ){
@@ -80,7 +79,6 @@ public class GeneticAlgorithm {
 		}
 		
 		nextGeneration.addAll(selectElites());
-		
 	}
 	
 

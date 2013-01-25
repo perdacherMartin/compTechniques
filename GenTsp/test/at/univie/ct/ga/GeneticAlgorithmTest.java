@@ -106,6 +106,11 @@ public class GeneticAlgorithmTest {
 		List<Individual> elites =  new ArrayList<Individual>(ga.selectElites());
 		
 		assertEquals(elites.size(), Integer.parseInt(prop.getProperty("eliten")));
+		for ( Individual elite : elites ){
+			assertTrue(elite.getCities().containsAll(ga.getCities()));
+			assertTrue(ga.getCities().containsAll(elite.getCities()));
+		}
+		
 		
 	}
 	
@@ -127,6 +132,25 @@ public class GeneticAlgorithmTest {
 		}
 		System.out.print("\n");
 		System.out.println("Roundtrip: " + temp.getRoundtrip());
+		
+	}
+	
+	@Test
+	public void testDoGenerate(){
+		Properties prop = new Properties();	
+		
+		try {
+			prop.load(new FileInputStream("information.properties"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		GeneticAlgorithm ga = new GeneticAlgorithm(prop);
+		
+		ga.doGenerate();
+		
+		assertEquals(ga.getPopulationSize(), Integer.parseInt(prop.getProperty("populationSize")));  
 		
 	}
 
