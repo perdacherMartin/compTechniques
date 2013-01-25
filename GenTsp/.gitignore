@@ -1,3 +1,5 @@
-# Ignore all bin directories
+# Ignore following directories
 bin
+target
+# ignore information properties file
 information.properties
